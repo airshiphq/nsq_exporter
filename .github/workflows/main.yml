@@ -1,0 +1,19 @@
+name: Build
+
+on: [push]
+
+env:
+  project: nsq_exporter
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v1
+    - uses: docker/build-push-action@v1
+      with:
+        username: docker
+        password: ${{ secrets.GITHUB_TOKEN }}
+        repository: docker.pkg.github.com/${{ github.repository }}/${{ env.project }}
+        tag_with_ref: true
+        tag_with_sha: true
